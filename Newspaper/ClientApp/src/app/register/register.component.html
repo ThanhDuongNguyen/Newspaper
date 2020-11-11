@@ -1,0 +1,35 @@
+
+<div class="row mt-5">
+  <div class="col"></div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Đăng ký</div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" (submit)="submitForm(registerForm.value)">
+          <div class="form-group">
+            <label>Họ tên</label>
+            <input class="form-control" name="name" ngModel />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input class="form-control" name="email" ngModel/>
+          </div>
+          <div class="form-group">
+            <label>Day of Birth</label>
+            <input class="form-control" name="address" ngModel />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" ngModel/>
+          </div>
+          <div class="form-group">
+            <label>Nhập lại Password</label>
+            <input type="password" class="form-control" name="confirmpassword" ngModel />
+          </div>
+          <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>
