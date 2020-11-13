@@ -51,6 +51,7 @@ namespace Newspaper.Migrations
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

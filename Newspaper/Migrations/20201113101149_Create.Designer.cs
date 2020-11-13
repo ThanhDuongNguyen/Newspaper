@@ -10,7 +10,7 @@ using Newspaper.Models;
 namespace Newspaper.Migrations
 {
     [DbContext(typeof(NewspaperContext))]
-    [Migration("20201111035249_Create")]
+    [Migration("20201113101149_Create")]
     partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,6 +130,9 @@ namespace Newspaper.Migrations
 
                     b.Property<string>("PasswordSalt")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoleID")

@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Newspaper.Helpers
 {
-    public enum EnumStatusCode
+    public class AppSettings
     {
-        OK,
-        EmailExist,
-        UserNotExist,
+        public string SecretKey { get; set; }
     }
 }

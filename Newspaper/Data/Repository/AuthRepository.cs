@@ -26,9 +26,20 @@ namespace Newspaper.Data.Repository
             Create(user);
         }
 
+        public void Update(User user)
+        {
+            Update(user);
+        }
+
+
         public async Task<int> SaveChangeAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> GetUser(string email)
+        {
+            return await FindByCondition(user => user.Email == email).FirstOrDefaultAsync();
         }
     }
 }

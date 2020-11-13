@@ -29,7 +29,7 @@ namespace Newspaper.Models
         [Required]
         public string PasswordSalt { get; set; }
 
-
+        public string RefreshToken { get; set; }
         public int? RoleID { get; set; }
         public Role Role { get; set; }
     }

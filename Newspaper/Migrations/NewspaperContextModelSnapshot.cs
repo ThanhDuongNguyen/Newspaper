@@ -130,6 +130,9 @@ namespace Newspaper.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("RoleID")
                         .HasColumnType("int");
 

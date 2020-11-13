@@ -40,5 +40,19 @@ namespace Newspaper.Services
 
             return EnumStatusCode.OK;
         }
+
+        public async Task<User> IsLoginValid(LoginDTO loginDTO)
+        {
+            var user = await _authRepository.GetUser(loginDTO.Email);
+            if (user == null || !Hash.Validate(loginDTO.Password, user.PasswordSalt, user.PasswordHash))
+                return null;
+            return user;
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            _authRepository.Update(user);
+            await _authRepository.SaveChangeAsync();
+        }
     }
 }
