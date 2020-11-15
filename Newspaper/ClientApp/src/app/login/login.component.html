@@ -1,0 +1,46 @@
+<div class="row mt-5">
+  <div class="col"></div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Đăng nhập</div>
+      <div class="card-body">
+        <div class="alert alert-danger" role="alert" *ngIf="errorList.length > 0">
+          <ul>
+            <li *ngFor="let error of errorList">
+              {{ error }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="alert alert-success" role="alert" *ngIf="IsAllDone">
+          Đăng nhập thành công
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="loginForm.controls.email.hasError('required') && loginForm.controls.email.touched">
+            Vui lòng nhập email
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="loginForm.controls.password.hasError('required') && loginForm.controls.password.touched">
+            Vui lòng nhập password
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="errorList.hasOwnProperty('password')">
+            {{errorList.password}}
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Đăng nhập</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>

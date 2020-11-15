@@ -1,0 +1,90 @@
+<div class="row mt-5">
+  <div class="col"></div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Đăng ký</div>
+      <div class="card-body">
+
+        <div class="alert alert-danger" role="alert" *ngIf="errorList.length > 0">
+          <ul>
+            <li *ngFor="let error of errorList">
+              {{ error }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="alert alert-success" role="alert" *ngIf="IsAllDone">
+          Đăng ký thành công
+        </div>
+        <!-- Name -->
+        <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm.value)">
+          <div class="form-group"
+            [ngClass]="{'has-error':registerForm.controls.name.hasError('required') && registerForm.controls.name.touched}">
+            <label>Họ tên</label>
+            <input type="text" class="form-control" formControlName="name" required/>
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.name.hasError('required') && registerForm.controls.name.touched">
+            Vui lòng nhập họ tên
+          </div>
+        <!-- Email -->
+          <div class="form-group"
+            [ngClass]="{'has-error':registerForm.controls.email.hasError('required') && registerForm.controls.email.touched}">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.email.hasError('required') && registerForm.controls.email.touched">
+            Vui lòng nhập email
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="errorList.hasOwnProperty('email')">
+            {{errorList.email}}
+          </div>
+        <!-- DOB -->
+          <div class="form-group"
+            [ngClass]="{'has-error':registerForm.controls.dob.hasError('required') && registerForm.controls.dob.touched}">
+            <label>Day of Birth</label>
+            <input type="date" min="1850-01-01" [max]="today | date:'yyyy-MM-dd'"
+              [placeholder]="today | date:'yyyy-MM-dd'" class="form-control" formControlName="dob" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.dob.hasError('required') && registerForm.controls.dob.touched">
+            Vui lòng nhập ngày sinh
+          </div>
+        <!-- Password -->
+          <div class="form-group"
+            [ngClass]="{'has-error':registerForm.controls.password.hasError('required') && registerForm.controls.password.touched}">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.password.hasError('required') && registerForm.controls.password.touched">
+            Vui lòng nhập password
+          </div>
+
+        <!-- ConfirmPassword -->
+          <div class="form-group"
+            [ngClass]="{'has-error':registerForm.controls.confirmpassword.hasError('required') && registerForm.controls.confirmpassword.touched}">
+            <label>Nhập lại Password</label>
+            <input type="password" class="form-control" formControlName="confirmpassword" />
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.confirmpassword.hasError('required') && registerForm.controls.confirmpassword.touched">
+            Vui lòng nhập xác nhận password
+          </div>
+          <div class="alert alert-danger" role="alert"
+            *ngIf="registerForm.controls.confirmpassword.hasError('notMatchPassword') && registerForm.controls.confirmpassword.dirty">
+            Password không khớp
+          </div>
+          <!-- <div>{{registerForm.controls.confirmpassword.errors | json}}</div> -->
+
+
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Đăng ký</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>
