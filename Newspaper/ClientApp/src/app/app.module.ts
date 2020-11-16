@@ -17,6 +17,8 @@ import { WriterComponent } from './writer/writer.component';
 
 import { RoleService } from './services/role.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { LogoAreaComponent } from './logo-area/logo-area.component';
+import { MenuAreaComponent } from './menu-area/menu-area.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     RegisterComponent,
     LoginComponent,
     WriterComponent,
-    TopBarComponent
+    TopBarComponent,
+    LogoAreaComponent,
+    MenuAreaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

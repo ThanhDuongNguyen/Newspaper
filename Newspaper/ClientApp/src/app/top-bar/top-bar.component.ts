@@ -12,4 +12,7 @@ export class TopBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  IsAuthentication() : boolean {
+    return localStorage.getItem('currentUser') !== null && localStorage.getItem('token') !== null
+  }
 }
