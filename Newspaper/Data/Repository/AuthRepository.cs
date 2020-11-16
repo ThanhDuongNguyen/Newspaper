@@ -26,7 +26,7 @@ namespace Newspaper.Data.Repository
             Create(user);
         }
 
-        public void Update(User user)
+        public void UpdateUser(User user)
         {
             Update(user);
         }
@@ -39,7 +39,9 @@ namespace Newspaper.Data.Repository
 
         public async Task<User> GetUser(string email)
         {
-            return await FindByCondition(user => user.Email == email).FirstOrDefaultAsync();
+            var user = await FindByCondition(user => user.Email == email).FirstOrDefaultAsync();
+            await _context.Entry(user).Reference(x => x.Role).LoadAsync();
+            return user;
         }
     }
 }

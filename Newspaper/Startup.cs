@@ -14,6 +14,7 @@ using Newspaper.Helpers;
 using Newspaper.Models;
 using Newspaper.Services;
 using Newspaper.Services.Interface;
+using System.Security.Claims;
 using System.Text;
 
 namespace Newspaper
@@ -44,7 +45,7 @@ namespace Newspaper
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(x =>
+            .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -57,6 +58,11 @@ namespace Newspaper
                 };
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Subscriber", policy => policy.RequireClaim(ClaimTypes.Role, "Subscriber"));
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+            });
 
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IAuthService, AuthService>();

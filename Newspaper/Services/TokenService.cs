@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newspaper.Helpers;
+using Newspaper.Models;
 using Newspaper.Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Newspaper.Services
 {
     public class TokenService : ITokenService
     {
-        private const double EXPIRE_HOURS = 1.0;
+        private const double EXPIRE_MINUTES = 1.0;
         private readonly AppSettings _appSettings;
 
         public TokenService(IOptions<AppSettings> appSettings)
@@ -23,28 +24,31 @@ namespace Newspaper.Services
             _appSettings = appSettings.Value;
         }
 
-        public string CreateAccessToken(IEnumerable<Claim> claims)
+        public string CreateAccessToken(User user)
         {
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.SecretKey));
-
-            var jwt = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(5),
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] 
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role.RoleName)
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(EXPIRE_MINUTES),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         public string CreateRefeshToken()
         {
             var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
-            }
+            var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

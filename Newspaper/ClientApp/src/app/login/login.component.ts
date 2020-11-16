@@ -18,7 +18,11 @@ export class LoginComponent implements OnInit {
   errorList: any;
   IsAllDone: boolean;
 
-  constructor( private fb: FormBuilder, private authService: AuthService, private rout : Router) { }
+  constructor( private fb: FormBuilder, private authService: AuthService, private rout : Router) {
+    if (localStorage.getItem('currentUser') !== null && localStorage.getItem('token') !== null) {
+      rout.navigate(['home']);
+    }
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({

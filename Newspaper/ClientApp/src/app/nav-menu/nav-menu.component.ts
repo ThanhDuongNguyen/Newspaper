@@ -8,11 +8,18 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
 
+  IsAuthentication() : boolean {
+    return localStorage.getItem('currentUser') !== null && localStorage.getItem('token') !== null
+  }
   collapse() {
     this.isExpanded = false;
   }
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  LogOut(){
+    
   }
 }

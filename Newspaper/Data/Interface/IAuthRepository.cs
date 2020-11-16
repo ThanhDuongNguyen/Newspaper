@@ -12,7 +12,7 @@ namespace Newspaper.Data.Interface
         public Task<User> GetUser(string email);
         public void CreateUser(User user);
 
-        public void Update(User user);
+        public void UpdateUser(User user);
         public Task<int> SaveChangeAsync();
     }
 }

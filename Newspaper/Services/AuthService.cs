@@ -51,7 +51,7 @@ namespace Newspaper.Services
 
         public async Task UpdateUser(User user)
         {
-            _authRepository.Update(user);
+            _authRepository.UpdateUser(user);
             await _authRepository.SaveChangeAsync();
         }
     }

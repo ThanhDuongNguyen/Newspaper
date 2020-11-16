@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newspaper.DTOs.Input;
+using Newspaper.DTOs.Output;
 using Newspaper.Helpers;
 using Newspaper.Services.Interface;
 
@@ -18,10 +20,12 @@ namespace Newspaper.Controllers
     {
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
-        public AuthController(IAuthService authService, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AuthController(IAuthService authService, ITokenService tokenService, IMapper mapper)
         {
             _authService = authService;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -54,18 +58,15 @@ namespace Newspaper.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var usersClaims = new[]
-                {
-                    new Claim(ClaimTypes.Name, user.Email)
-                };
-
-                var jwtToken = _tokenService.CreateAccessToken(usersClaims);
+                var jwtToken = _tokenService.CreateAccessToken(user);
                 user.RefreshToken = _tokenService.CreateRefeshToken();
 
                 await _authService.UpdateUser(user);
 
+                var userForView = _mapper.Map<UserForView>(user);
                 return new ObjectResult(new
                 {
+                    user = userForView,
                     token = jwtToken,
                     refreshToken = user.RefreshToken
                 });
