@@ -15,6 +15,6 @@ namespace Newspaper.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Newspaper> Newspapers { get; set; }
+        public DbSet<NewspaperModel> Newspapers { get; set; }
     }
 }

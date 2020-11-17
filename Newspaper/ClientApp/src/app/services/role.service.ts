@@ -30,6 +30,7 @@ export class RoleService implements CanActivate {
         localStorage.setItem("refreshToken", res.refreshToken);
       },
         err => {
+          console.log(err);
           alert("Không có quyền truy cập vào trang này");
           this.router.navigate(['login']);
           return false;
@@ -38,12 +39,8 @@ export class RoleService implements CanActivate {
 
   tryRefreshingTokens(token: string) {
     const refreshToken: string = localStorage.getItem("refreshToken");
-    const credentials = JSON.stringify({ accessToken: token, refreshToken: refreshToken });
+    const credentials = JSON.stringify({ AccessToken: token, RefreshToken: refreshToken });
 
-    return this.http.post(environment.apiUrl + "refresh", credentials, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    });
+    return this.http.post(environment.apiUrl + "token/refresh", credentials, {headers: new HttpHeaders({ "Content-Type": "application/json" })});
   }
 }

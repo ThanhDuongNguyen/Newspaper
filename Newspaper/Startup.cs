@@ -14,6 +14,7 @@ using Newspaper.Helpers;
 using Newspaper.Models;
 using Newspaper.Services;
 using Newspaper.Services.Interface;
+using NewspaperProject.Data.Interface;
 using System.Security.Claims;
 using System.Text;
 
@@ -65,6 +66,8 @@ namespace Newspaper
             });
 
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<INewspaperRepository, NewspaperRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
 

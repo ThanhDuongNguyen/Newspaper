@@ -1,14 +1,14 @@
 ﻿using Newspaper.Helpers;
+using Newspaper.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-namespace Newspaper.Data.Interface
+
+namespace NewspaperProject.Data.Interface
 {
     public interface INewspaperRepository
     {
-        Task<IEnumerable<Newspaper>> GetEmployeesAsync(Guid companyId, EmployeeParameters
-employeeParameters, bool trackChanges);
+        Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(EmployeeParameters employeeParameters);
 
     }
 }

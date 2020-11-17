@@ -10,8 +10,8 @@ using Newspaper.Models;
 namespace Newspaper.Migrations
 {
     [DbContext(typeof(NewspaperContext))]
-    [Migration("20201117081320_add-content")]
-    partial class addcontent
+    [Migration("20201117090212_create")]
+    partial class create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace Newspaper.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Newspaper.Models.Newspaper", b =>
+            modelBuilder.Entity("Newspaper.Models.NewspaperModel", b =>
                 {
                     b.Property<int>("PageID")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace Newspaper.Migrations
                     b.Navigation("ParentCatID");
                 });
 
-            modelBuilder.Entity("Newspaper.Models.Newspaper", b =>
+            modelBuilder.Entity("Newspaper.Models.NewspaperModel", b =>
                 {
                     b.HasOne("Newspaper.Models.Category", "Category")
                         .WithMany("Newspapers")

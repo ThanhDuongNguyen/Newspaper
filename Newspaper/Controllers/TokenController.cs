@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newspaper.DTOs.Input;
 using Newspaper.Services.Interface;
+using Newtonsoft.Json;
 
 namespace Newspaper.Controllers
 {
@@ -35,7 +36,17 @@ namespace Newspaper.Controllers
 
                 var user = await _authServer.GetUser(email);
 
-                if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+                if (user == null)
+                {
+                    return BadRequest("Yêu cầu không hợp lệ");
+                }
+
+                if(user.RefreshToken != refreshToken)
+                {
+                    return BadRequest("Yêu cầu không hợp lệ");
+                }
+
+                if(user.RefreshTokenExpiryTime <= DateTime.Now)
                 {
                     return BadRequest("Yêu cầu không hợp lệ");
                 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Newspaper.Models
 {
     [Table("Newspaper")]
-    public class Newspaper
+    public class NewspaperModel
     {
         [Key]
         public int PageID { get; set; }

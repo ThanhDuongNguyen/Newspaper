@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newspaper.Helpers;
+using NewspaperProject.Data.Interface;
 
 namespace Newspaper.Controllers
 {
@@ -11,13 +14,17 @@ namespace Newspaper.Controllers
     [ApiController]
     public class NewspaperController : ControllerBase
     {
-
-        public NewspaperController()
+        private readonly INewspaperRepository _newspaperRepository;
+        public NewspaperController(INewspaperRepository newspaperRepository)
         {
-            
+            _newspaperRepository = newspaperRepository;
         }
 
-        //[HttpGet]
-        //public IActionResult GetNewspaper
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetNewspaper(EmployeeParameters employeeParameters)
+        {
+            return Ok(await _newspaperRepository.GetNewpapersAsync(employeeParameters));
+        }
     }
 }

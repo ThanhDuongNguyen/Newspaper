@@ -20,7 +20,7 @@ export class AuthService implements CanActivate {
 
   Login(loginData: any) {
     return this.http.post(environment.apiUrl + "auth/login", JSON.stringify(loginData), {
-      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
     })
       .pipe(
         map((res: any) => {

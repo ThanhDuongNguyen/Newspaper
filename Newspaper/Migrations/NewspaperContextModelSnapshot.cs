@@ -40,7 +40,7 @@ namespace Newspaper.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Newspaper.Models.Newspaper", b =>
+            modelBuilder.Entity("Newspaper.Models.NewspaperModel", b =>
                 {
                     b.Property<int>("PageID")
                         .ValueGeneratedOnAdd()
@@ -159,7 +159,7 @@ namespace Newspaper.Migrations
                     b.Navigation("ParentCatID");
                 });
 
-            modelBuilder.Entity("Newspaper.Models.Newspaper", b =>
+            modelBuilder.Entity("Newspaper.Models.NewspaperModel", b =>
                 {
                     b.HasOne("Newspaper.Models.Category", "Category")
                         .WithMany("Newspapers")

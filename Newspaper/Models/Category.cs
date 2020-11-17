@@ -18,6 +18,6 @@ namespace Newspaper.Models
         [Required]
         public string CategoryName {get; set;}
 
-        public ICollection<Newspaper> Newspapers { get; set; }
+        public ICollection<NewspaperModel> Newspapers { get; set; }
     }
 }
