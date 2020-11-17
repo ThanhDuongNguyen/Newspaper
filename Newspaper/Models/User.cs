@@ -30,6 +30,7 @@ namespace Newspaper.Models
         public string PasswordSalt { get; set; }
 
         public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
         public int? RoleID { get; set; }
         public Role Role { get; set; }
     }

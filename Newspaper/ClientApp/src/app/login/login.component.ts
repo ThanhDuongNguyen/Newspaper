@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         (res) => {
           this.IsAllDone = true;
           alert("Đăng nhập thành công");
-          this.rout.navigate(['login']);
+          this.rout.navigate(['home']);
         },
         (err) => {
           console.log(err);

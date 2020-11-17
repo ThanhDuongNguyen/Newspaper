@@ -58,17 +58,19 @@ namespace Newspaper.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var jwtToken = _tokenService.CreateAccessToken(user);
-                user.RefreshToken = _tokenService.CreateRefeshToken();
+                var accessToken = _tokenService.CreateAccessToken(user);
+                var refreshToken = _tokenService.CreateRefreshToken();
+
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
 
                 await _authService.UpdateUser(user);
 
                 var userForView = _mapper.Map<UserForView>(user);
                 return new ObjectResult(new
                 {
-                    user = userForView,
-                    token = jwtToken,
-                    refreshToken = user.RefreshToken
+                    token = accessToken,
+                    refreshToken = refreshToken
                 });
             }
             return BadRequest(ModelState);

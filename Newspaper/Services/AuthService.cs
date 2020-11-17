@@ -54,5 +54,11 @@ namespace Newspaper.Services
             _authRepository.UpdateUser(user);
             await _authRepository.SaveChangeAsync();
         }
+
+        public async Task<User> GetUser(string email)
+        {
+            return await _authRepository.GetUser(email);
+        }
+
     }
 }

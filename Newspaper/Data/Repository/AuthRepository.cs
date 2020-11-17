@@ -40,7 +40,8 @@ namespace Newspaper.Data.Repository
         public async Task<User> GetUser(string email)
         {
             var user = await FindByCondition(user => user.Email == email).FirstOrDefaultAsync();
-            await _context.Entry(user).Reference(x => x.Role).LoadAsync();
+            if(user != null)
+                await _context.Entry(user).Reference(x => x.Role).LoadAsync();
             return user;
         }
     }

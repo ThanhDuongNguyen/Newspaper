@@ -15,7 +15,7 @@
         <a *ngIf="!IsAuthentication()" [routerLink]="['/register']">
           <button class="btn btn-outline-success my-2 my-sm-0">Đăng ký</button>
         </a>
-        <a *ngIf="IsAuthentication()" (click)="LogOut()">
+        <a *ngIf="IsAuthentication()" [routerLink]="" (click)="LogOut()">
           <button class="btn btn-outline-success my-2 my-sm-0">Đăng xuất</button>
         </a>
       </div>

@@ -14,8 +14,7 @@ namespace Newspaper.Services.Interface
     {
         public Task<EnumStatusCode> Register(UserForCreate userForCreate);
         public Task<User> IsLoginValid(LoginDTO loginDTO);
-
         public Task UpdateUser(User user);
-
+        public Task<User> GetUser(string email);
     }
 }

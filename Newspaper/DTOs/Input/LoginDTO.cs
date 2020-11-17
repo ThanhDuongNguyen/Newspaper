@@ -9,7 +9,6 @@ namespace Newspaper.DTOs.Input
     public class LoginDTO
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Vui lòng nhập email")]
-        [EmailAddress(ErrorMessage = "Vui lòng nhập mail hợp lệ")]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Vui lòng nhập mật khẩu")]

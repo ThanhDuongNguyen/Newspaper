@@ -27,7 +27,7 @@
               </a>
             </li>
             <li *ngIf="IsAuthentication()" class="list-inline-item">
-              <a>
+              <a  (click)="LogOut()" [routerLink]="">
                 Đăng xuất
               </a>
             </li>

@@ -24,6 +24,9 @@ namespace Newspaper.Models
         public string TinyContent { get; set; }
 
         [Required]
+        public string Content { get; set; }
+
+        [Required]
         public int? CategoryID { get; set; }
         public Category Category { get; set; }
 
