@@ -45,7 +45,7 @@ namespace Newspaper.Controllers
             return BadRequest(ModelState);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
@@ -69,6 +69,7 @@ namespace Newspaper.Controllers
                 var userForView = _mapper.Map<UserForView>(user);
                 return new ObjectResult(new
                 {
+                    user = userForView,
                     token = accessToken,
                     refreshToken = refreshToken
                 });

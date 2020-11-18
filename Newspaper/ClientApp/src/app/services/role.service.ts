@@ -16,31 +16,36 @@ export class RoleService implements CanActivate {
   constructor(public auth: AuthService, public router: Router, private http: HttpClient) { }
 
 
-  async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | boolean {
     const expectedRole = route.data.expectedRole;
     const token = localStorage.getItem('token');
     const tokenPayload = this.jwtHelper.decodeToken(token);
-    console.log(tokenPayload);
-    if (this.auth.isAuthenticated() && tokenPayload.role == expectedRole) {
+    if(tokenPayload.role != expectedRole){
+      alert("Không có quyền truy cập vào trang này");
+        this.router.navigate(['login']);
+        return false;
+    } else if (this.auth.isAuthenticated()) {
       return true;
     }
-    this.tryRefreshingTokens(token)
-      .subscribe((res: any) => {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("refreshToken", res.refreshToken);
-      },
-        err => {
-          console.log(err);
-          alert("Không có quyền truy cập vào trang này");
-          this.router.navigate(['login']);
-          return false;
-        });
+    return this.tryRefreshingTokens(token).pipe(
+      map((res: any) => {
+        console.log(res);
+        if(res){
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("refreshToken", res.refreshToken);
+          return true;
+        }
+        alert("Phiên làm việc đã hết hạn");
+        this.router.navigate(['login']);
+        return false;
+      }));
   }
 
   tryRefreshingTokens(token: string) {
-    const refreshToken: string = localStorage.getItem("refreshToken");
-    const credentials = JSON.stringify({ AccessToken: token, RefreshToken: refreshToken });
-
+    var refreshToken =  localStorage.getItem('refreshToken');
+    var credentials = JSON.stringify({ AccessToken: token, RefreshToken: refreshToken });
+    console.log(refreshToken);
+    console.log(token);
     return this.http.post(environment.apiUrl + "token/refresh", credentials, {headers: new HttpHeaders({ "Content-Type": "application/json" })});
   }
 }

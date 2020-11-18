@@ -32,6 +32,8 @@ namespace Newspaper
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllersWithViews().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<NewspaperContext>(option =>
                 option.UseSqlServer(Configuration.GetConnectionString("QLTT_DB")));
 
@@ -67,6 +69,7 @@ namespace Newspaper
 
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<INewspaperRepository, NewspaperRepository>();
+            services.AddScoped<INewspaperService, NewspaperService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
@@ -95,7 +98,7 @@ namespace Newspaper
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -104,7 +107,7 @@ namespace Newspaper
             }
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

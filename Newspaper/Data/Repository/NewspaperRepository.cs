@@ -16,12 +16,18 @@ namespace Newspaper.Data.Repository
         {
         }
 
-        public async Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(EmployeeParameters employeeParameters)
+        public async Task<int> AddNewspaper(NewspaperModel newspaper)
+        {
+            Create(newspaper);
+            return await SaveChangeAsync();
+        }
+
+        public async Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(NewspaperParameters newspaperParameters)
         {
             return await FindAll()
             .OrderBy(e => e.Date)
-            .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
-            .Take(employeeParameters.PageSize)
+            .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
+            .Take(newspaperParameters.PageSize)
             .ToListAsync();
         }
     }

@@ -4,33 +4,14 @@
           <div class="col-md">
               <div class="main-menu">
                   <ul class="list-unstyled list-inline">
-                      <li class="list-inline-item"><a>TRANG CHỦ <i class="fa fa-angle-down"></i></a>
-                          <ul class="dropdown list-unstyled">
-                              <li><a href="index.html">Home Style 1</a></li>
-                              <li><a href="02-home-two.html">Home Style 2</a></li>
-                              <li><a href="03-home-three.html">Home Style 3</a></li>
-                          </ul>
-                      </li>
+                      <li class="list-inline-item"><a [routerLink]="['/home']">TRANG CHỦ</a></li>
                       <li class="list-inline-item"><a>DANH MỤC <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown list-unstyled">
-                              <li><a href="04-about-us.html">About Us</a></li>
-                              <li><a>Category <i class="fa fa-angle-right"></i></a>
+                              <li *ngFor="let cate of newCate"><a href="05-category-one.html">{{cate.categoryName}} <i class="fa fa-angle-right"></i></a>
                                   <ul class="dropdown-sub list-unstyled">
-                                      <li><a href="05-category-one.html">Category Style 1</a></li>
-                                      <li><a href="06-category-two.html">Category Style 2</a></li>
-                                      <li><a href="07-category-three.html">Category Style 3</a></li>
-                                      <li><a href="08-category-four.html">Category Style 4</a></li>
+                                      <li *ngFor="let cateChild of cate.Child"><a href="05-category-one.html">{{cateChild.categoryName}}</a></li>
                                   </ul>
                               </li>
-                              <li><a>News Details <i class="fa fa-angle-right"></i></a>
-                                  <ul class="dropdown-sub list-unstyled">
-                                      <li><a href="09-news-details-one.html">News Details Style 1</a></li>
-                                      <li><a href="10-news-details-two.html">News Details Style 2</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="12-faq.html">Faq</a></li>
-                              <li><a href="11-contact.html">Contact</a></li>
-                              <li><a href="13-404.html">404</a></li>
                           </ul>
                       </li>
                   </ul>

@@ -13,6 +13,8 @@ namespace Newspaper.Models
         [Key]
         public int CategoryID { get; set; }
 
+
+        public int? ParentCategoryID { get; set; }
         public Category ParentCatID { get; set; }
 
         [Required]

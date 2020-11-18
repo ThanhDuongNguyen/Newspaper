@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newspaper.DTOs.Input;
 using Newspaper.Helpers;
+using Newspaper.Models;
+using Newspaper.Services.Interface;
 using NewspaperProject.Data.Interface;
 
 namespace Newspaper.Controllers
@@ -14,17 +17,26 @@ namespace Newspaper.Controllers
     [ApiController]
     public class NewspaperController : ControllerBase
     {
-        private readonly INewspaperRepository _newspaperRepository;
-        public NewspaperController(INewspaperRepository newspaperRepository)
+        private readonly INewspaperService _newspaperService;
+       
+        public NewspaperController(INewspaperService newspaperService)
         {
-            _newspaperRepository = newspaperRepository;
+            _newspaperService = newspaperService;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetNewspaper(EmployeeParameters employeeParameters)
+        public async Task<IActionResult> GetNewspaper([FromQuery]NewspaperParameters employeeParameters)
         {
-            return Ok(await _newspaperRepository.GetNewpapersAsync(employeeParameters));
+            return Ok(await _newspaperService.GetAllNewspaper(employeeParameters));
+        }
+
+
+        [Authorize(Policy = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> AddNewspaper(NewspaperForCreate newspaper)
+        {
+            return Ok(await _newspaperService.AddNewspaper(newspaper));
         }
     }
 }

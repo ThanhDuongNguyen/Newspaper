@@ -10,8 +10,10 @@ namespace Newspaper
         public MappingProfile()
         {
             CreateMap<UserForCreate, User>();
-            CreateMap<User, UserForView>().
-                ForMember(x => x.Role, opt => opt.MapFrom(x => x.Role.RoleName));
+            CreateMap<User, UserForView>()
+                .ForMember(x => x.Role, opt => opt.MapFrom(x => x.Role.RoleName));
+            CreateMap<NewspaperForCreate, NewspaperModel>()
+                .ForMember(x => x.CategoryID, op => op.MapFrom(x => x.CategoryID));
         }
     }
 }

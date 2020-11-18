@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService implements CanActivate {
   jwtHelper = new JwtHelperService;
+  currentUser = new Subject<string>();
   constructor(private http: HttpClient, public router: Router) { }
   Register(user: any) {
     return this.http.post(environment.apiUrl + "auth/register", JSON.stringify(user), {
@@ -26,7 +27,9 @@ export class AuthService implements CanActivate {
         map((res: any) => {
           console.log(res);
           localStorage.setItem('token', res.token);
-          localStorage.setItem('refreshToken', JSON.stringify(res.refreshToken));
+          localStorage.setItem('currentUser', JSON.stringify(res.user));
+          localStorage.setItem('refreshToken', res.refreshToken);
+          this.currentUser.next(res.user);
         })
       )
   }
@@ -34,6 +37,7 @@ export class AuthService implements CanActivate {
   LogOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('currentUser');
   }
 
   isAuthenticated(): boolean {

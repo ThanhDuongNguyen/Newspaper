@@ -1,7 +1,7 @@
 <section class="top-bar">
   <div class="container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-7">
         <div class="bar-left">
           <ul class="list-inline">
             <li class="list-inline-item">
@@ -13,7 +13,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-5">
         <div class="bar-right">
           <ul class="list-inline">
             <li *ngIf="!IsAuthentication()" class="list-inline-item">
@@ -26,11 +26,20 @@
                 Đăng ký
               </a>
             </li>
-            <li *ngIf="IsAuthentication()" class="list-inline-item">
-              <a  (click)="LogOut()" [routerLink]="">
-                Đăng xuất
-              </a>
+            <li *ngIf="IsAuthentication()" class="list-inline-item profile-list">
+              <div class="profile">
+                <img src="https://photo-1-baomoi.zadn.vn/w700_r16x9_sm/2020_11_17_83_37048349/a896cb4bff0816564f19.jpg">
+                <a>{{name}}</a>
+              </div>
+              <ul class="dropdown list-unstyled list-fur">
+                <li *ngIf="isAdmin" ><a [routerLink] = "">Quản lý</a></li>
+                <li *ngIf="isAdmin" ><a [routerLink]="['/writer']">Viết bài</a></li>
+                <li><a (click)="LogOut()" [routerLink]="">Đăng xuất</a></li>
+              </ul>
             </li>
+            <!-- <li *ngIf="IsAuthentication()" class="list-inline-item">
+
+            </li> -->
           </ul>
         </div>
       </div>

@@ -21,9 +21,11 @@ namespace Newspaper.Helpers
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+        public string OrderBy { get; set; }
     }
-    public class EmployeeParameters : RequestParameters
+    public class NewspaperParameters : RequestParameters
     {
+        
     }
 
 }

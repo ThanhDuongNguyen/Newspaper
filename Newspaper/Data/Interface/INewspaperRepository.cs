@@ -8,7 +8,8 @@ namespace NewspaperProject.Data.Interface
 {
     public interface INewspaperRepository
     {
-        Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(EmployeeParameters employeeParameters);
+        Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(NewspaperParameters newspaperParameters);
 
+        Task<int> AddNewspaper(NewspaperModel newspaper);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newspaper.DTOs.Input;
@@ -23,6 +24,7 @@ namespace Newspaper.Controllers
             _authServer = authServer;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("refresh")]
         public async Task<IActionResult> Refresh(TokenDTO tokenDTO)
@@ -36,17 +38,7 @@ namespace Newspaper.Controllers
 
                 var user = await _authServer.GetUser(email);
 
-                if (user == null)
-                {
-                    return BadRequest("Yêu cầu không hợp lệ");
-                }
-
-                if(user.RefreshToken != refreshToken)
-                {
-                    return BadRequest("Yêu cầu không hợp lệ");
-                }
-
-                if(user.RefreshTokenExpiryTime <= DateTime.Now)
+                if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
                 {
                     return BadRequest("Yêu cầu không hợp lệ");
                 }
@@ -57,7 +49,7 @@ namespace Newspaper.Controllers
                 await _authServer.UpdateUser(user);
                 return new ObjectResult(new
                 {
-                    accessToken = newAccessToken,
+                    token = newAccessToken,
                     refreshToken = newRefreshToken
                 });
             }
