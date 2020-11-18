@@ -1,0 +1,39 @@
+<section class="top-bar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="bar-left">
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a>Giới thiệu</a>
+            </li>
+            <li class="list-inline-item">
+              <a>Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bar-right">
+          <ul class="list-inline">
+            <li *ngIf="!IsAuthentication()" class="list-inline-item">
+              <a [routerLink]="['/login']">
+                Đăng nhập
+              </a>
+            </li>
+            <li *ngIf="!IsAuthentication()" class="list-inline-item">
+              <a [routerLink]="['/register']">
+                Đăng ký
+              </a>
+            </li>
+            <li *ngIf="IsAuthentication()" class="list-inline-item">
+              <a  (click)="LogOut()" [routerLink]="">
+                Đăng xuất
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
