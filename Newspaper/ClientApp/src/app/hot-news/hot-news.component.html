@@ -3,36 +3,25 @@
         <div class="row">
             <div class="col-lg-8 col-md-12 padding-fix-r">
                 <div class="big-box">
-                    <img src="" alt="" class="fit-img">
+                    <img src="{{NewsFirst.imageAvatar}}" alt="" class="fit-img">
                     <div class="big-box-layer">
-                        <p><a href="">The purpose of this handout is to give some basic instruction. It
-                                is usually composed of several sentences that together develop one.</a>
+                        <p><a [routerLink]="['/news/' + NewsFirst.pageID]">{{NewsFirst.title}}</a>
                         </p>
                         <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item">LIFE STYLE</li>
-                            <li class="list-inline-item">February 11, 2019</li>
+                            <li class="list-inline-item">{{NewsFirst.category.categoryName}}</li>
+                            <li class="list-inline-item">{{NewsFirst.date|date:'longDate'}}</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 slider-fix">
-                <div class="mini-box mini-box-up">
-                    <img src="https://photo-1-baomoi.zadn.vn/w700_r16x9_sm/2020_11_17_83_37048349/a896cb4bff0816564f19.jpg" alt="" class="fit-img">
+                <div *ngFor="let news of listNews | slice:1:3 ; let first = first" [ngClass]="{'mini-box-up': first}" class="mini-box ">
+                    <img src="{{news.imageAvatar}}" alt="" class="fit-img">
                     <div class="mini-box-layer">
-                        <p><a href="">It is usually composed of several sentences that together develop one.</a></p>
+                        <p><a [routerLink]="['/news/' + news.pageID]" >{{news.title}}</a></p>
                         <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item">TECHNOLOGY</li>
-                            <li class="list-inline-item">February 11, 2019</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mini-box">
-                    <img src="https://photo-1-baomoi.zadn.vn/w700_r16x9_sm/2020_11_17_83_37048349/a896cb4bff0816564f19.jpg" alt="" class="fit-img">
-                    <div class="mini-box-layer">
-                        <p><a href="">These sentences are selected from various online news.</a></p>
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item">HEALTH</li>
-                            <li class="list-inline-item">February 11, 2019</li>
+                            <li class="list-inline-item">{{news.category.categoryName}}</li>
+                            <li class="list-inline-item">{{news.date |date:'longDate'}}</li>
                         </ul>
                     </div>
                 </div>

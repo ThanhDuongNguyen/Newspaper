@@ -1,0 +1,28 @@
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="row ">
+        <p class="category">{{newspaper.category.categoryName}}</p>
+      </div>
+      <hr/>
+      <div class="row">
+        <p class="title">{{newspaper.title}}</p>
+      </div>
+      <div class="row">
+        <p class="date">
+          {{newspaper.date | date:'MM-dd-yyyy, hh:mm'}}
+        </p>
+      </div>
+      <div class="row">
+        <p class="tiny-content">{{newspaper.tinyContent}}</p>
+      </div>
+      <div class="row">
+        <img class="avatar" src="{{newspaper.imageAvatar}}">
+      </div>
+      <div [innerHtml]="newspaper.content" class="row" id="content"></div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
-//import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -15,11 +15,18 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { WriterComponent } from './writer/writer.component';
 
+
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from "@angular/common";
+import localeVN from "@angular/common/locales/vi";
+
 import { RoleService } from './services/role.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { LogoAreaComponent } from './logo-area/logo-area.component';
 import { MenuAreaComponent } from './menu-area/menu-area.component';
 import { HotNewsComponent } from './hot-news/hot-news.component';
+import { DetailComponent } from './detail/detail.component';
+import { ListNewsComponent } from './list-news/list-news.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +41,9 @@ import { HotNewsComponent } from './hot-news/hot-news.component';
     TopBarComponent,
     LogoAreaComponent,
     MenuAreaComponent,
-    HotNewsComponent
+    HotNewsComponent,
+    DetailComponent,
+    ListNewsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,9 +64,14 @@ import { HotNewsComponent } from './hot-news/hot-news.component';
         }
       },
       { path: 'home', component: HomeComponent },
+      { path: 'news/:id', component: DetailComponent },
+      { path: 'category/:id/:pageNumber', component: ListNewsComponent },
+      { path: 'category/:id', component: ListNewsComponent },
     ])
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'vi'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+registerLocaleData(localeVN, "vi");

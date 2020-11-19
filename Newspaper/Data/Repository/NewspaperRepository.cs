@@ -22,13 +22,37 @@ namespace Newspaper.Data.Repository
             return await SaveChangeAsync();
         }
 
-        public async Task<IEnumerable<NewspaperModel>> GetNewpapersAsync(NewspaperParameters newspaperParameters)
+        public async Task<IEnumerable<NewspaperModel>> GetAllNewpapersAsync(NewspaperParameters newspaperParameters)
         {
-            return await FindAll()
-            .OrderBy(e => e.Date)
-            .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
-            .Take(newspaperParameters.PageSize)
-            .ToListAsync();
+            List<NewspaperModel> newspapers;
+
+            if(newspaperParameters.CategoryID != null) {
+                newspapers = await FindByCondition(x => x.CategoryID.Equals(newspaperParameters.CategoryID))
+                    .OrderBy(e => e.Date)
+                .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
+                .Take(newspaperParameters.PageSize)
+                .ToListAsync(); ;
+            }
+            else
+            {
+                newspapers = await FindAll().OrderBy(e => e.Date)
+                .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
+                .Take(newspaperParameters.PageSize)
+                .ToListAsync();
+            }
+
+            foreach(var news in newspapers)
+            {
+                await _context.Entry(news).Reference(x => x.Category).LoadAsync();
+            }
+            return newspapers;
+        }
+
+        public async Task<NewspaperModel> GetNewpapersAsync(int id)
+        {
+            var news = await FindByCondition(x => x.PageID.Equals(id)).SingleOrDefaultAsync();
+            await _context.Entry(news).Reference(x => x.Category).LoadAsync();
+            return news;
         }
     }
 }

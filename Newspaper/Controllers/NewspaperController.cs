@@ -26,9 +26,16 @@ namespace Newspaper.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetNewspaper([FromQuery]NewspaperParameters employeeParameters)
+        public async Task<IActionResult> GetAllNewspapers([FromQuery]NewspaperParameters employeeParameters)
         {
             return Ok(await _newspaperService.GetAllNewspaper(employeeParameters));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetNewspaper(int id)
+        {
+            return Ok(await _newspaperService.GetNewspaper(id));
         }
 
 

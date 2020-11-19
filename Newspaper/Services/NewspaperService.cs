@@ -32,7 +32,12 @@ namespace Newspaper.Services
 
         public async Task<IEnumerable<NewspaperModel>> GetAllNewspaper(NewspaperParameters newspaperParameters)
         {
-            return await _newspaperRepository.GetNewpapersAsync(newspaperParameters);
+            return await _newspaperRepository.GetAllNewpapersAsync(newspaperParameters);
+        }
+
+        public async Task<NewspaperModel> GetNewspaper(int id)
+        {
+            return await _newspaperRepository.GetNewpapersAsync(id);
         }
     }
 }

@@ -9,14 +9,22 @@ export class NewspaperService {
 
   constructor(private http: HttpClient) { }
 
-  getAllNewspaper(pageNumber, pageSize) {
+  getAllNewspaper(pageNumber, pageSize, categoryID) {
     const params = new HttpParams()
       .set('pageNumber', pageNumber)
-      .set('pageSize', pageSize);
-      console.log(params);
+      .set('pageSize', pageSize)
+      .set('categoryId', categoryID);
+
+    console.log(params);
     return this.http.get(environment.apiUrl + "newspaper", {
       headers: new HttpHeaders({ "Content-Type": "application/json" }),
       params: params
+    });
+  }
+
+  getNewspaper(id) {
+    return this.http.get(environment.apiUrl + "newspaper/" + id, {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
     });
   }
 

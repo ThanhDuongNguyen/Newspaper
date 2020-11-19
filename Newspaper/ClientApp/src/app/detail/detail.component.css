@@ -1,0 +1,52 @@
+
+#content img{
+  width: 100%;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#content p {
+  margin: 0;
+}
+
+.avatar{
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.category
+{
+  background: #d32f2f;
+  padding: 4px 12px 3px;
+  font-weight: 400;
+  border-radius: 2px;
+  margin: 30px 0 0 0;
+  font-size: 15px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.title
+{
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.date{
+  font-style: italic;
+}
+
+.tiny-content{
+  font-weight: 700;
+  font-style: italic;
+}
+
+hr{
+  margin: 0;
+  width: 100%;
+  size:5px;
+  color:"black";
+}

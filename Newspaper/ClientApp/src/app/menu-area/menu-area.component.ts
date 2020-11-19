@@ -14,7 +14,6 @@ export class MenuAreaComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getAllCategory().subscribe((res)=>{
       this.Categories = res;
-      console.log(this.Categories.length);
       this.newCate =[];
       for(let i = 0; i < this.Categories.length; i++){
         if(this.Categories[i].parentCatID == null){

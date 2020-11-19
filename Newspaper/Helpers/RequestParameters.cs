@@ -22,6 +22,7 @@ namespace Newspaper.Helpers
             }
         }
         public string OrderBy { get; set; }
+        public int? CategoryID { get; set; }
     }
     public class NewspaperParameters : RequestParameters
     {

@@ -15,5 +15,7 @@ namespace Newspaper.Services.Interface
         public Task<int> AddNewspaper(NewspaperForCreate newspaperForCreate);
 
         public Task<IEnumerable<NewspaperModel>> GetAllNewspaper(NewspaperParameters newspaperParameters);
+
+        public Task<NewspaperModel> GetNewspaper(int id);
     }
 }
