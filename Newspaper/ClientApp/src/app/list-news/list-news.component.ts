@@ -16,13 +16,11 @@ export class ListNewsComponent implements OnInit {
     route.params.subscribe((params)=>{
       this.catID = params.id;
       this.pageNum = params.pageNumber;
-      console.log("catid", this.catID);
-      console.log("num", this.pageNum);
     })
   }
 
   ngOnInit() {
-    this.newspaperService.getAllNewspaper(this.pageNum, 1,this.catID).subscribe((res : any)=>{
+    this.newspaperService.getAllNewspaper(this.pageNum, 2,this.catID).subscribe((res : any)=>{
       this.listnews = res;
       console.log(this.listnews);
     }, err=>{
