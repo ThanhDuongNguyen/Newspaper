@@ -39,5 +39,22 @@ namespace Newspaper.Services
         {
             return await _newspaperRepository.GetNewpapersAsync(id);
         }
+
+        public async Task<int> GetNewsCateNumber(int? CatID)
+        {
+            return await _newspaperRepository.NewspaperCateNumber(CatID);
+        }
+
+        public async Task<int> DeleteNewspaper(int id)
+        {
+            return await _newspaperRepository.DeleteNewspaper(id);
+        }
+
+        public async Task<int> UpdateNewspaper(NewspaperModel newspaper)
+        {
+            newspaper.Status = true;
+            return await _newspaperRepository.UpdateNewspaper(newspaper);
+        }
+
     }
 }

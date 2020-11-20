@@ -17,5 +17,11 @@ namespace Newspaper.Services.Interface
         public Task<IEnumerable<NewspaperModel>> GetAllNewspaper(NewspaperParameters newspaperParameters);
 
         public Task<NewspaperModel> GetNewspaper(int id);
+
+        public Task<int> GetNewsCateNumber(int? CatID);
+
+        public Task<int> DeleteNewspaper(int id);
+
+        public Task<int> UpdateNewspaper(NewspaperModel newspaper);
     }
 }

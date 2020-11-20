@@ -8,7 +8,7 @@
       </div>
       <hr/>
       <div class="row">
-        <p class="title">{{newspaper.title}}</p>
+        <p class="title-details">{{newspaper.title}}</p>
       </div>
       <div class="row">
         <p class="date">
@@ -16,12 +16,12 @@
         </p>
       </div>
       <div class="row">
-        <p class="tiny-content">{{newspaper.tinyContent}}</p>
+        <p class="tiny-content-details">{{newspaper.tinyContent}}</p>
       </div>
       <div class="row">
         <img class="avatar" src="{{newspaper.imageAvatar}}">
       </div>
-      <div [innerHtml]="newspaper.content" class="row" id="content"></div>
+      <div [innerHtml]="newspaper.content" class="row content"></div>
     </div>
     <div class="col-4"></div>
   </div>

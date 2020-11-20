@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
@@ -27,11 +26,13 @@ import { MenuAreaComponent } from './menu-area/menu-area.component';
 import { HotNewsComponent } from './hot-news/hot-news.component';
 import { DetailComponent } from './detail/detail.component';
 import { ListNewsComponent } from './list-news/list-news.component';
+import { MostViewNewsComponent } from './most-view-news/most-view-news.component';
+import { ManagerNewsComponent } from './manager-news/manager-news.component';
+import { EditNewsComponent } from './edit-news/edit-news.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
@@ -43,7 +44,10 @@ import { ListNewsComponent } from './list-news/list-news.component';
     MenuAreaComponent,
     HotNewsComponent,
     DetailComponent,
-    ListNewsComponent
+    ListNewsComponent,
+    MostViewNewsComponent,
+    ManagerNewsComponent,
+    EditNewsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -64,12 +68,27 @@ import { ListNewsComponent } from './list-news/list-news.component';
         }
       },
       { path: 'home', component: HomeComponent },
+      {
+        path: 'manager', component: ManagerNewsComponent,
+        canActivate: [RoleService],
+        data: {
+          expectedRole: 'Admin'
+        }
+      },
+      {
+        path: 'edit/:id', component: EditNewsComponent,
+        canActivate: [RoleService],
+        data: {
+          expectedRole: 'Admin'
+        }
+      },
       { path: 'news/:id', component: DetailComponent },
-      { path: 'category/:id/:pageNumber', component: ListNewsComponent },
-      { path: 'category/:id', component: ListNewsComponent },
-    ])
+      { path: 'category/:id/:pageNumber', component: ListNewsComponent, runGuardsAndResolvers: 'pathParamsChange' },
+    ], {
+      onSameUrlNavigation: 'reload'
+    })
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'vi'}],
+  providers: [{ provide: LOCALE_ID, useValue: 'vi' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

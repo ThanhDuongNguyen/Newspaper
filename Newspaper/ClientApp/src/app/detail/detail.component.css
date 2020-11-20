@@ -1,5 +1,5 @@
 
-#content img{
+.content img{
   width: 100%;
   margin-bottom: 30px;
   margin-left: auto;
@@ -7,7 +7,7 @@
 }
 
 
-#content p {
+.content p {
   margin: 0;
 }
 
@@ -28,7 +28,7 @@
   text-transform: uppercase;
 }
 
-.title
+.title-details
 {
   margin-top: 30px;
   font-weight: bold;
@@ -39,7 +39,7 @@
   font-style: italic;
 }
 
-.tiny-content{
+.tiny-content-details{
   font-weight: 700;
   font-style: italic;
 }

@@ -15,7 +15,7 @@ export class HotNewsComponent implements OnInit {
 
   ngOnInit() {
     this.newspaperService.getAllNewspaper(1,3,"").subscribe((res:any)=>{
-      this.listNews = res;
+      this.listNews = res.listNews;
       this.NewsFirst = this.listNews[0];
       console.log(this.listNews);
     },err=>console.log(err));

@@ -27,23 +27,25 @@ namespace Newspaper.Data.Repository
             List<NewspaperModel> newspapers;
 
             if(newspaperParameters.CategoryID != null) {
-                newspapers = await FindByCondition(x => x.CategoryID.Equals(newspaperParameters.CategoryID))
+                newspapers = await FindByCondition(x => x.CategoryID.Equals(newspaperParameters.CategoryID) && x.Status == true)
                     .OrderBy(e => e.Date)
                 .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
                 .Take(newspaperParameters.PageSize)
-                .ToListAsync(); ;
+                .ToListAsync();
             }
             else
             {
-                newspapers = await FindAll().OrderBy(e => e.Date)
+                newspapers = await FindAll().Where(x=> x.Status == true).OrderBy(e => e.Date)
                 .Skip((newspaperParameters.PageNumber - 1) * newspaperParameters.PageSize)
                 .Take(newspaperParameters.PageSize)
                 .ToListAsync();
             }
 
+
             foreach(var news in newspapers)
             {
                 await _context.Entry(news).Reference(x => x.Category).LoadAsync();
+                await _context.Entry(news).Reference(x => x.Author).LoadAsync();
             }
             return newspapers;
         }
@@ -54,5 +56,26 @@ namespace Newspaper.Data.Repository
             await _context.Entry(news).Reference(x => x.Category).LoadAsync();
             return news;
         }
+
+        public async Task<int> NewspaperCateNumber(int? CatID)
+        {
+            return await FindByCondition(x => x.CategoryID.Equals(CatID) && x.Status == true).CountAsync();
+        }
+
+        public async Task<int> DeleteNewspaper(int id)
+        {
+            var newspaper = await FindByCondition(x => x.PageID.Equals(id)).SingleOrDefaultAsync();
+            if (newspaper == null) return -1;
+            newspaper.Status = false;
+            return await SaveChangeAsync();
+        }
+
+        public async Task<int> UpdateNewspaper(NewspaperModel newspaper)
+        {
+            Update(newspaper);
+            return await SaveChangeAsync();
+        }
+
+
     }
 }

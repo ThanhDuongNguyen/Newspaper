@@ -11,8 +11,11 @@ namespace NewspaperProject.Data.Interface
         Task<IEnumerable<NewspaperModel>> GetAllNewpapersAsync(NewspaperParameters newspaperParameters);
         Task<NewspaperModel> GetNewpapersAsync(int id);
 
+        Task<int> NewspaperCateNumber(int? CatID);
         Task<int> AddNewspaper(NewspaperModel newspaper);
 
+        Task<int> UpdateNewspaper(NewspaperModel newspaper);
 
+        Task<int> DeleteNewspaper(int id);
     }
 }

@@ -1,0 +1,27 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Danh mục</th>
+        <th scope="col">Ngày đăng</th>
+        <th scope="col">Tác giả</th>
+        <th scope="col">Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let news of listNew">
+        <th scope="row"></th>
+        <td>{{ news.title }}</td>
+        <td>{{ news.category.categoryName }}</td>
+        <td>{{ news.date | date:'MM-dd-yyyy, hh:mm'}}</td>
+        <td>{{ news.author.name }}</td>
+        <td>
+          <button routerLink="/edit/{{news.pageID}}" type="button" class="btn btn-primary" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <button (click)="Delete(news.pageID)" type="button" class="ml-2 btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

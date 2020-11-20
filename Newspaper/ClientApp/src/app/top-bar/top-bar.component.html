@@ -32,9 +32,9 @@
                 <a>{{name}}</a>
               </div>
               <ul class="dropdown list-unstyled list-fur">
-                <li *ngIf="isAdmin" ><a [routerLink] = "">Quản lý</a></li>
+                <li *ngIf="isAdmin" ><a [routerLink] ="['/manager']">Quản lý</a></li>
                 <li *ngIf="isAdmin" ><a [routerLink]="['/writer']">Viết bài</a></li>
-                <li><a (click)="LogOut()" [routerLink]="">Đăng xuất</a></li>
+                <li><a (click)="LogOut()" [routerLink]="['/home']">Đăng xuất</a></li>
               </ul>
             </li>
             <!-- <li *ngIf="IsAuthentication()" class="list-inline-item">

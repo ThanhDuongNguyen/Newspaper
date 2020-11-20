@@ -41,4 +41,26 @@ export class NewspaperService {
       }),
     });
   }
+
+  updateNewspaper(newspaperData: any) {
+    newspaperData.categoryID = parseInt(newspaperData.categoryID);
+    console.log(newspaperData);
+    return this.http.put(environment.apiUrl + "newspaper", JSON.stringify(newspaperData), {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }),
+    });
+  }
+
+  deleteNewspaper(id : any){
+    return this.http.delete(environment.apiUrl + "newspaper/" +id, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }),
+    })
+  }
 }

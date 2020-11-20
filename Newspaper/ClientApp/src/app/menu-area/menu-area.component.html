@@ -7,9 +7,9 @@
                       <li class="list-inline-item"><a [routerLink]="['/home']">TRANG CHỦ</a></li>
                       <li class="list-inline-item"><a>DANH MỤC <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown list-unstyled">
-                              <li *ngFor="let cate of newCate"><a [routerLink]="['/category/' + cate.categoryID] +'/1'">{{cate.categoryName}} <i class="fa fa-angle-right"></i></a>
+                              <li *ngFor="let cate of newCate"><a routerLink="/category/{{cate.categoryID}}/1">{{cate.categoryName}} <i class="fa fa-angle-right"></i></a>
                                   <ul class="dropdown-sub list-unstyled">
-                                      <li *ngFor="let cateChild of cate.Child"><a [routerLink]="['/category/' + cateChild.categoryID +'/1']" >{{cateChild.categoryName}}</a></li>
+                                      <li *ngFor="let cateChild of cate.Child"><a routerLink="/category/{{cateChild.categoryID}}/1">{{cateChild.categoryName}}</a></li>
                                   </ul>
                               </li>
                           </ul>
